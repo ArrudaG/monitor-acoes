@@ -1,7 +1,7 @@
 import json
 import os
 
-from src.config.settings import LOWER_ALERT_KEY, UPPER_ALERT_KEY
+from src.config.settings import LOWER_ALERT_KEY0, LOWER_ALERT_KEY1, LOWER_ALERT_KEY2, LOWER_ALERT_KEY3
 
 ESTADO_FILE = "estado.json"
 
@@ -12,8 +12,10 @@ def carregar_estado():
     else:
         estado = {}
 
-    estado.setdefault(LOWER_ALERT_KEY, False)
-    estado.setdefault(UPPER_ALERT_KEY, False)
+    estado.setdefault(LOWER_ALERT_KEY0, False)
+    estado.setdefault(LOWER_ALERT_KEY1, False)
+    estado.setdefault(LOWER_ALERT_KEY2, False)
+    estado.setdefault(LOWER_ALERT_KEY3, False)
 
     return estado
 
