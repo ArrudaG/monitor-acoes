@@ -5,9 +5,8 @@ TOKEN = os.getenv("TOKEN")
 
 def preco_acao(ticker):
     try:
-        url = f"https://brapi.dev/api/quote/{ticker}"
-        headers = {"Authorization": f"Bearer {TOKEN}"}
-        r = requests.get(url, headers=headers, timeout=10)
+        url = f"https://brapi.dev/api/quote/{ticker}?token={TOKEN}"
+        r = requests.get(url, timeout=10)
         data = r.json()
         return data["results"][0]["regularMarketPrice"]
     except Exception as e:
