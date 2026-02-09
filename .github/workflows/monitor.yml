@@ -2,7 +2,6 @@ name: Monitor Acoes
 
 on:
   schedule:
-    # Executa a cada 5 minutos das 10h às 18:59h
     - cron: "03,08,13,18,23,28,33,38,43,48,53,58 13-21 * * 1-5"
   workflow_dispatch:
 
@@ -22,6 +21,14 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
+      - name: Rodar monitor
+        env:
+          BRAPI_TOKEN: ${{ secrets.BRAPI_TOKEN }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: python monitor.py
+
       - name: Commit estado
         run: |
           git config --global user.name "github-actions"
@@ -29,12 +36,3 @@ jobs:
           git add src/estado.json
           git commit -m "Atualiza estado dos alertas" || echo "Nada para commit"
           git push
-
-      - name: Rodar monitor
-        env:
-          BRAPI_TOKEN: ${{ secrets.BRAPI_TOKEN }}
-          EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO}}
-      
-        run: python monitor.py
