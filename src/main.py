@@ -6,8 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
-load_dotenv()
-
 from src.infra.estado import carregar_estado, salvar_estado
 #from infra.logging_config import setup_logger#
 from src.services.email_service import enviar_email
@@ -76,3 +74,6 @@ def monitor():
             alertas[LOWER_ALERT_KEY3] = False
           
     salvar_estado(alertas)
+    
+if __name__ == "__main__":
+    monitor()
