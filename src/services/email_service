@@ -1,0 +1,25 @@
+import os
+import smtplib
+import logging
+
+from email.mime.text import MIMEText
+
+EMAIL_USER = os.getenv("EMAIL_USER")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_TO = os.getenv("EMAIL_TO")
+
+def enviar_email(assunto, mensagem):
+    try:
+        msg = MIMEText(mensagem)
+        msg['Subject'] = assunto
+        msg['From'] = EMAIL_USER
+        msg['To'] = EMAIL_TO
+
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(EMAIL_USER, EMAIL_PASSWORD)
+            server.send_message(msg)
+
+        logging.info("Email enviado com sucesso")
+
+    except Exception as e:
+        logging.error(f"Erro ao enviar o email: {e}")
