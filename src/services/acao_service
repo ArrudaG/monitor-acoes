@@ -1,4 +1,7 @@
+import os
 import requests
+
+TOKEN = os.getenv("TOKEN")
 
 def preco_acao(ticker):
     try:
