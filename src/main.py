@@ -22,7 +22,7 @@ alertas = carregar_estado()
 
 #logging.info("Monitor iniciado")#
 
-while True:
+def monitor():
     acao0 = preco_acao(PAR_MONITORADO[0])
     acao1 = preco_acao(PAR_MONITORADO[1])
     acao2 = preco_acao(PAR_MONITORADO[2])
