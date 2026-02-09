@@ -23,7 +23,7 @@ jobs:
 
       - name: Rodar monitor
         env:
-          BRAPI_TOKEN: ${{ secrets.BRAPI_TOKEN }}
+          TOKEN: ${{ secrets.BRAPI_TOKEN }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
