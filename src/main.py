@@ -8,11 +8,11 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 load_dotenv()
 
-from infra.estado import carregar_estado, salvar_estado
+from src.infra.estado import carregar_estado, salvar_estado
 #from infra.logging_config import setup_logger#
-from services.email_service import enviar_email
-from services.acao_service import preco_acao
-from config.settings import *
+from src.services.email_service import enviar_email
+from src.services.acao_service import preco_acao
+from src.config.settings import *
 #from infra.powershell_monitor import powershell_monitor#
 
 #setup_logger()#
