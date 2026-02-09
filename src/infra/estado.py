@@ -1,7 +1,7 @@
 import json
 import os
 
-from src.config.settings import LOWER_ALERT_KEY0, LOWER_ALERT_KEY1, LOWER_ALERT_KEY2, LOWER_ALERT_KEY3
+from config.settings import LOWER_ALERT_KEY0, LOWER_ALERT_KEY1, LOWER_ALERT_KEY2, LOWER_ALERT_KEY3
 
 ESTADO_FILE = "estado.json"
 
