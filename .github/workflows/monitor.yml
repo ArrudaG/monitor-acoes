@@ -27,7 +27,7 @@ jobs:
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
-        run: python src/monitor.py
+        run: python src/main.py
 
       - name: Commit estado
         run: |
