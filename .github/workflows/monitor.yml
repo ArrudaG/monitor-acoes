@@ -5,6 +5,8 @@ on:
     - cron: "03,08,13,18,23,28,33,38,43,48,53,58 13-21 * * 1-5"
   workflow_dispatch:
 
+permissions: write-all
+
 jobs:
   run-monitor:
     runs-on: ubuntu-latest
@@ -12,6 +14,8 @@ jobs:
     steps:
       - name: Checar repositório
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Configurar Python
         uses: actions/setup-python@v5
