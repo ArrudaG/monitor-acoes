@@ -27,7 +27,7 @@ jobs:
 
       - name: Rodar monitor
         env:
-          TOKEN: ${{ secrets.BRAPI_TOKEN }}
+          ACAO_API_KEY: ${{ secrets.BRAPI_TOKEN }}
           EMAIL_USER: ${{ secrets.EMAIL_USER }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
