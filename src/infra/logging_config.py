@@ -1,4 +1,4 @@
-"""import logging
+import logging
 from logging.handlers import RotatingFileHandler
 
 def setup_logger():
@@ -11,4 +11,4 @@ def setup_logger():
     logging.basicConfig(
         handlers=[handler],
         level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s",)"""
+        format="%(asctime)s - %(levelname)s - %(message)s",)

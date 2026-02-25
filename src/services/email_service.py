@@ -1,32 +1,40 @@
-import os
 import smtplib
 import logging
 
 from email.mime.text import MIMEText
+from src.config.settings import EMAIL_USER, EMAIL_PASSWORD, EMAIL_TO
 
-EMAIL_USER = os.getenv("EMAIL_USER")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
-EMAIL_TO = os.getenv("EMAIL_TO")
+class EmailService:
 
-def enviar_email(assunto, mensagem):
-    if not EMAIL_USER or not EMAIL_PASSWORD or not EMAIL_TO:
-        raise ValueError("Credenciais de email não carregadas")
+    def __init__(self):
 
-    try:
-        msg = MIMEText(mensagem)
-        msg["Subject"] = assunto
-        msg["From"] = EMAIL_USER
-        msg["To"] = EMAIL_TO
+        if not EMAIL_USER or not EMAIL_PASSWORD:
+            raise ValueError("Credenciais de email não carregadas")
 
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-            server.login(EMAIL_USER, EMAIL_PASSWORD)
-            server.sendmail(
-                EMAIL_USER,
-                EMAIL_TO,
-                msg.as_string()
-            )
-        logging.info("Email enviado com sucesso")
+        if not EMAIL_TO:
+            raise ValueError("Email do destinatário não carregado")
 
-    except Exception as e:
-        print("ERRO SMTP:", e)
-        logging.error(f"Erro ao enviar o email: {e}")
+        self.user = EMAIL_USER
+        self.password = EMAIL_PASSWORD
+        self.to = EMAIL_TO
+
+    def enviar(self, assunto, mensagem):
+
+        try:
+            msg = MIMEText(mensagem)
+            msg["Subject"] = assunto
+            msg["From"] = self.user
+            msg["To"] = self.to
+
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+                server.login(self.user, self.password)
+                server.sendmail(
+                    self.user,
+                    self.to,
+                    msg.as_string()
+                )
+            logging.info("Email enviado com sucesso")
+
+        except Exception as error:
+            logging.error(f"Erro ao enviar o email: {error}")
+            raise

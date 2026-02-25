@@ -1,79 +1,18 @@
-import time
-import logging
+from src.services.monitor_service import MonitorService
+from src.services.email_service import EmailService
+from src.services.acao_service import buscar_preco
+from src.infra.estado_service import EstadoService
+from src.config.settings import ACAO_UPPER_LIMIT, ACAO_LOWER_LIMIT, PAR_MONITORADO
 
-from pathlib import Path
-from dotenv import load_dotenv
+def main():
 
-load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+    monitor = MonitorService(
+        acao_service=buscar_preco,
+        email_service=EmailService(),
+        estado_service=EstadoService()
+    )
 
-from src.infra.estado import carregar_estado, salvar_estado
-#from infra.logging_config import setup_logger#
-from src.services.email_service import enviar_email
-from src.services.acao_service import preco_acao
-from src.config.settings import *
-#from infra.powershell_monitor import powershell_monitor#
+    monitor.executar(PAR_MONITORADO, ACAO_UPPER_LIMIT, ACAO_LOWER_LIMIT)
 
-#setup_logger()#
-#powershell_monitor()#
-
-alertas = carregar_estado()
-
-#logging.info("Monitor iniciado")#
-
-def monitor():
-    acao0 = preco_acao(PAR_MONITORADO[0])
-    acao1 = preco_acao(PAR_MONITORADO[1])
-    acao2 = preco_acao(PAR_MONITORADO[2])
-    acao3 = preco_acao(PAR_MONITORADO[3])
-
-    if acao0 is not None:
-        print(f"{PAR_MONITORADO[0]}: {acao0}")
-      
-        if acao0 < ACAO_LOWER_LIMIT0:
-            if not alertas.get(LOWER_ALERT_KEY0, False):
-                enviar_email(f"{PAR_MONITORADO[0]} abaixo de {ACAO_LOWER_LIMIT0}",f"Preço: {acao0}\n")
-                alertas[LOWER_ALERT_KEY0] = True
-            
-        else:
-            alertas[LOWER_ALERT_KEY0] = False
-
-    if acao1 is not None:
-        print(f"{PAR_MONITORADO[1]}: {acao1}")
-      
-        if acao1 < ACAO_LOWER_LIMIT1:
-            if not alertas.get(LOWER_ALERT_KEY1, False):
-                enviar_email(f"{PAR_MONITORADO[1]} abaixo de {ACAO_LOWER_LIMIT1}",
-                         f"Preço: {acao1}\n")
-                alertas[LOWER_ALERT_KEY1] = True
-            
-        else:
-            alertas[LOWER_ALERT_KEY1] = False
-
-    if acao2 is not None:
-        print(f"{PAR_MONITORADO[2]}: {acao2}")
-      
-        if acao2 < ACAO_LOWER_LIMIT2:
-            if not alertas.get(LOWER_ALERT_KEY2, False):
-                enviar_email(f"{PAR_MONITORADO[2]} abaixo de {ACAO_LOWER_LIMIT2}",
-                         f"Preço: {acao2}\n")
-                alertas[LOWER_ALERT_KEY2] = True
-            
-        else:
-            alertas[LOWER_ALERT_KEY2] = False
-
-    if acao3 is not None:
-        print(f"{PAR_MONITORADO[3]}: {acao3}\n")
-      
-        if acao3 < ACAO_LOWER_LIMIT3:
-            if not alertas.get(LOWER_ALERT_KEY3, False):
-                enviar_email(f"{PAR_MONITORADO[3]} abaixo de {ACAO_LOWER_LIMIT3}",
-                         f"Preço: {acao3}\n")
-                alertas[LOWER_ALERT_KEY3] = True
-            
-        else:
-            alertas[LOWER_ALERT_KEY3] = False
-          
-    salvar_estado(alertas)
-    
 if __name__ == "__main__":
-    monitor()
+    main()
