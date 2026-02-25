@@ -6,5 +6,9 @@
   "LOWER_BBDC3": false,
   "UPPER_BBDC3": false,
   "LOWER_ABEV3": false,
-  "UPPER_ABEV3": false
+  "UPPER_ABEV3": false,
+  "LOWER_TOTS3": false,
+  "UPPER_TOTS3": false,
+  "LOWER_MELI34": false,
+  "UPPER_MELI34": false
 }
