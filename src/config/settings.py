@@ -14,4 +14,4 @@ PAR_MONITORADO = [
 
 ACAO_LOWER_LIMIT = [35.00, 12.72, 16.87, 14.74, 36.00, 8.00]
 
-ACAO_UPPER_LIMIT = [null, null, null, null, null, 9.85]
+ACAO_UPPER_LIMIT = [100, 100, 100, 100, 100, 9.85]
