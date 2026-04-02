@@ -3,7 +3,7 @@
   "UPPER_PETR4": false,
   "LOWER_ITSA3": false,
   "UPPER_ITSA3": false,
-  "LOWER_BBDC3": false,
+  "LOWER_BBDC3": true,
   "UPPER_BBDC3": false,
   "LOWER_ABEV3": false,
   "UPPER_ABEV3": false,
