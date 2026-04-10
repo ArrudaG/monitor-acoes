@@ -10,9 +10,21 @@ def buscar_preco(ticker):
         r = requests.get(url, timeout=10)
 
         r.raise_for_status()
-
         data = r.json()
-        return data["results"][0]["regularMarketPrice"]
+
+        results = data.get("results")
+
+        if not results:
+            logging.error(f"Nenhum resultado encontrado para {ticker}")
+            return None
+
+        preco = results[0].get("regularMarketPrice")
+
+        if preco is None:
+            logging.error(f"Nenhum preco encontrado para {ticker}")
+            return None
+
+        return preco
 
     except requests.Timeout as error:
         logging.error(f"O tempo máximo para buscar {ticker} foi atingido: {error}")
