@@ -33,7 +33,3 @@ def buscar_preco(ticker):
     except requests.RequestException as error:
         logging.error(f"Erro HTTP ao buscar preço de {ticker}: {error}")
         return None
-
-    except (KeyError, IndexError) as error:
-        logging.error(f"Estrutura inesperada da resposta para {ticker}: {error}")
-        return None

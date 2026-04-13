@@ -17,6 +17,12 @@ class MonitorService():
 
     def executar(self, ativos, upper_limits, lower_limits):
 
+        if lower_limits and len(lower_limits) != len(ativos):
+            raise ValueError("lower_limits deve ter o mesmo tamanho que ativos")
+
+        if upper_limits and len(upper_limits) != len(ativos):
+            raise ValueError("upper_limits deve ter o mesmo tamanho que ativos")
+
         alertas = self.estado_service.carregar_estado()
 
         for ativo in ativos:
@@ -26,8 +32,11 @@ class MonitorService():
         for i, ativo in enumerate(ativos):
 
             preco = self.acao_service(ativo)
-
             print(f"{ativo}: {preco}")
+
+            if preco is None:
+                print (f"Não foi possível conseguir o valor de {ativo}.")
+                continue
 
             if lower_limits:
                 lower = lower_limits[i]
