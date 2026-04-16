@@ -14,7 +14,7 @@
   "LOWER_MGLU3": false,
   "UPPER_MGLU3": false,
   "LOWER_BBDC4": false,
-  "UPPER_BBDC4": true,
+  "UPPER_BBDC4": false,
   "LOWER_BBSE3": false,
   "UPPER_BBSE3": false,
   "LOWER_TAEE4": false,
