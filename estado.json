@@ -11,7 +11,7 @@
   "UPPER_TOTS3": false,
   "LOWER_MELI34": false,
   "UPPER_MELI34": false,
-  "LOWER_MGLU3": false,
+  "LOWER_MGLU3": true,
   "UPPER_MGLU3": false,
   "LOWER_BBDC4": false,
   "UPPER_BBDC4": false,
