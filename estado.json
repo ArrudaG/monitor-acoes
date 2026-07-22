@@ -19,6 +19,6 @@
   "UPPER_BBSE3": true,
   "LOWER_TAEE4": false,
   "UPPER_TAEE4": false,
-  "LOWER_VALE3": true,
+  "LOWER_VALE3": false,
   "UPPER_VALE3": false
 }
