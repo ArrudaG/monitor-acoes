@@ -25,4 +25,4 @@ dist/
 *.bak
 *.sqlite3
 
-.github
+teste/teste.py
