@@ -1,4 +1,4 @@
-﻿from sqlalchemy import String, Boolean, Integer, Float, DateTime
+﻿from sqlalchemy import String, Boolean, Integer, Float
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 class Base(DeclarativeBase):
