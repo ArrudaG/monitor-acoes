@@ -1,6 +1,6 @@
 ﻿from sqlalchemy import select
-from infra.database import SessionLocal
-from models.notificacao_model import Notificacao
+from src.infra.database import SessionLocal
+from src.models.notificacao_model import Notificacao
 
 class NotificacaoService():
     def __init__(self, acao_service, email_service):
