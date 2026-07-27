@@ -24,3 +24,5 @@ dist/
 *.tmp
 *.bak
 *.sqlite3
+
+.github

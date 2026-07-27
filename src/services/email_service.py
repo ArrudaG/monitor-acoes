@@ -1,5 +1,4 @@
 import smtplib
-import logging
 
 from email.mime.text import MIMEText
 from src.config.settings import EMAIL_USER, EMAIL_PASSWORD, EMAIL_TO
@@ -33,8 +32,7 @@ class EmailService:
                     self.to,
                     msg.as_string()
                 )
-            logging.info("Email enviado com sucesso")
+            return "Email enviado com sucesso"
 
         except Exception as error:
-            logging.error(f"Erro ao enviar o email: {error}")
-            raise
+            raise Exception(f"Erro ao enviar o email: {error}")
