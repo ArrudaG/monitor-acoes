@@ -1,6 +1,6 @@
-from services.acao_service import AcaoService
-from services.email_service import EmailService
-from services.notificacao_service import NotificacaoService
+from src.services.acao_service import AcaoService
+from src.services.email_service import EmailService
+from src.services.notificacao_service import NotificacaoService
 
 def main():
 
