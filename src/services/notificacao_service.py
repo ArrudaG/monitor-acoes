@@ -37,24 +37,31 @@ class NotificacaoService():
     def retornar_pendentes(self):
         precos = {}
         for ticker in self.obter_tickers_unicos_para_pesquisa():
-            precos[ticker] = self.acao_service.buscar_preco(ticker)
+            preco = self.acao_service.buscar_preco(ticker)
+            if preco is not None:
+                precos[ticker] = preco
 
         notificacoes = self.listar_pendentes()
 
         for notificacao in notificacoes:
-            preco = precos[notificacao.simbolo_ativo]
-
-            if preco is None:
+            simbolo_ativo = notificacao.simbolo_ativo
+            if simbolo_ativo not in precos:
                 continue
 
+            preco = precos[notificacao.simbolo_ativo]
+
             if notificacao.tipo_gatilho == "ABOVE" and preco >= notificacao.valor_alvo:
-                enviado = self.email_service.enviar(f"{notificacao.simbolo_ativo} acima de R$ {notificacao.valor_alvo}", f"Preço: R${preco}")
-                if enviado:
+                try:
+                    self.email_service.enviar(f"{notificacao.simbolo_ativo} acima de R$ {notificacao.valor_alvo}", f"Preço: R${preco}")
                     self.marcar_como_notificada(notificacao.id)
+                except Exception as e:
+                    print(f"Erro ao enviar email: {e}")
             elif notificacao.tipo_gatilho == "BELOW" and preco <=notificacao.valor_alvo:
-                enviado = self.email_service.enviar(f"{notificacao.simbolo_ativo} abaixo de R$ {notificacao.valor_alvo}", f"Preço: R${preco}")
-                if enviado:
+                try:
+                    self.email_service.enviar(f"{notificacao.simbolo_ativo} abaixo de R$ {notificacao.valor_alvo}", f"Preço: R${preco}")
                     self.marcar_como_notificada(notificacao.id)
+                except Exception as e:
+                    print(f"Erro ao enviar email: {e}")
 
     def marcar_como_notificada(self, id_notificacao):
         with SessionLocal() as session:
@@ -63,5 +70,4 @@ class NotificacaoService():
             if notificacao is None:
                 return
             notificacao.ja_notificou = True
-
             session.commit()

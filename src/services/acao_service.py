@@ -1,25 +1,24 @@
 import logging
 import requests
-
 from src.config.settings import ACAO_API_KEY
 
 class AcaoService:
     def buscar_preco(self, ticker):
+        """
+        Busca o preço da ação usando a API brapi.dev
+        """
         try:
             url = f"https://brapi.dev/api/quote/{ticker}?token={ACAO_API_KEY}"
             r = requests.get(url, timeout=10)
-
             r.raise_for_status()
             data = r.json()
 
             results = data.get("results")
-
             if not results:
                 logging.error(f"Nenhum resultado encontrado para {ticker}")
                 return None
 
             preco = results[0].get("regularMarketPrice")
-
             if preco is None:
                 logging.error(f"Nenhum preco encontrado para {ticker}")
                 return None
