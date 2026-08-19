@@ -1,25 +1,28 @@
-﻿from sqlalchemy import select
+﻿
+
+from sqlalchemy import select
+
+from src.models.ticker_model import Ticker
 from src.infra.database import SessionLocal
 from src.models.notificacao_model import Notificacao
 
-class NotificacaoService():
+class NotificacaoService:
     def __init__(self, acao_service, email_service):
         self.acao_service = acao_service
         self.email_service = email_service
 
-    def obter_tickers_unicos_para_pesquisa(self) -> set[str]:
+    @staticmethod
+    def obter_tickers() -> list[str]:
         with SessionLocal() as session:
             stmt = (
-                select(Notificacao.simbolo_ativo)
-                .where(Notificacao.ja_notificou.is_(False))
-                .distinct()
+                select(Ticker.ticker)
             )
-
             resultados = session.scalars(stmt).all()
 
-            return set(resultados)
+            return resultados
 
-    def listar_pendentes(self):
+    @staticmethod
+    def listar_pendentes():
         with SessionLocal() as session:
             stmt = (
                 select(
@@ -34,9 +37,19 @@ class NotificacaoService():
 
             return session.execute(stmt).all()
 
+    @staticmethod
+    def marcar_como_notificada(id_notificacao):
+        with SessionLocal() as session:
+            notificacao = session.get(Notificacao, id_notificacao)
+
+            if notificacao is None:
+                return
+            notificacao.ja_notificou = True
+            session.commit()
+
     def retornar_pendentes(self):
         precos = {}
-        for ticker in self.obter_tickers_unicos_para_pesquisa():
+        for ticker in self.obter_tickers():
             preco = self.acao_service.buscar_preco(ticker)
             if preco is not None:
                 precos[ticker] = preco
@@ -62,12 +75,3 @@ class NotificacaoService():
                     self.marcar_como_notificada(notificacao.id)
                 except Exception as e:
                     print(f"Erro ao enviar email: {e}")
-
-    def marcar_como_notificada(self, id_notificacao):
-        with SessionLocal() as session:
-            notificacao = session.get(Notificacao, id_notificacao)
-
-            if notificacao is None:
-                return
-            notificacao.ja_notificou = True
-            session.commit()
