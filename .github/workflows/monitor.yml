@@ -32,7 +32,7 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: python -m main
+        run: 
 
       - name: Commit estado
         : |
