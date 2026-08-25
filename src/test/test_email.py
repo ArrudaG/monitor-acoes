@@ -1,6 +1,5 @@
 from src.services.email_service import EmailService
 
-
 def test_enviar_email_funcionamento():
     email_service = EmailService()
     email_service.to = "gabrielarr1227@gmail.com"
