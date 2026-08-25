@@ -1,7 +1,4 @@
-﻿
-
-from sqlalchemy import select
-
+﻿from sqlalchemy import select
 from src.models.ticker_model import Ticker
 from src.infra.database import SessionLocal
 from src.models.notificacao_model import Notificacao
@@ -41,7 +38,6 @@ class NotificacaoService:
     def marcar_como_notificada(id_notificacao):
         with SessionLocal() as session:
             notificacao = session.get(Notificacao, id_notificacao)
-
             if notificacao is None:
                 return
             notificacao.ja_notificou = True
